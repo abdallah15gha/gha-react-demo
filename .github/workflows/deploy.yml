@@ -1,0 +1,26 @@
+name: A Deployment Workflow
+on: push
+jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+          - name: Get the Code
+            uses : actions/checkout@v6
+          - name: Install Dependencies
+            run: npm ci
+          - name: Run Tests
+            run: npm test
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+          - name: Get the Code
+            uses : actions/checkout@v6
+          - name: Install Dependencies
+            run: npm ci
+          - name: Build the Project
+            run: npm run build
+          - name: Deploy It
+            run: |
+                echo "Deploying ... "
+                sleep 10
+                echo "Successfully Deployed :D"
