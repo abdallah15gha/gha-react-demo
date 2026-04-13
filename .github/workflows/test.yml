@@ -2,7 +2,7 @@ name: A Test Workflow
 on: push
 jobs:
     test_react_operation:
-        runs_on: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Get the Code
               uses : actions/checkout@v6
