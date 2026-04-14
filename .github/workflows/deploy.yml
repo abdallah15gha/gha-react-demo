@@ -4,9 +4,15 @@ on:
     types:
       - opened
       - edited
+  push:
+    branches:
+      - main
+      - 'dev-*'
+    # paths-ignore:
+    #   - '.github/workflows/*'
   workflow_dispatch:
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Get the Code Inside the Runner
@@ -15,8 +21,28 @@ jobs:
         run: npm ci
       - name: Test the Operation
         run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the Code
+        uses: actions/checkout@v6
+      - name: Install Dependencies
+        run: npm ci
       - name: Build
         run: npm run build
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist-artifact
+          path: |
+              dist
+              package.json
+              vite.config.js
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy the Project
         run: |
             echo "Deploying ..."
