@@ -35,14 +35,17 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: dist-artifact
-          path: |
-              dist
-              package.json
-              vite.config.js
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download the built artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-artifact
+      - name: Output the content
+        run: ls
       - name: Deploy the Project
         run: |
             echo "Deploying ..."
