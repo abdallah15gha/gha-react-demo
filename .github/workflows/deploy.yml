@@ -1,26 +1,24 @@
-name: A Deployment Workflow
-on: push
+name: A Deploy Workflow
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+  workflow_dispatch:
 jobs:
-    test:
-      runs-on: ubuntu-latest
-      steps:
-          - name: Get the Code
-            uses : actions/checkout@v6
-          - name: Install Dependencies
-            run: npm ci
-          - name: Run Tests
-            run: npm test
-    deploy:
-      runs-on: ubuntu-latest
-      steps:
-          - name: Get the Code
-            uses : actions/checkout@v6
-          - name: Install Dependencies
-            run: npm ci
-          - name: Build the Project
-            run: npm run build
-          - name: Deploy It
-            run: |
-                echo "Deploying ... "
-                sleep 10
-                echo "Successfully Deployed :D"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the Code Inside the Runner
+        uses: actions/checkout@v6
+      - name: Install Dependencies
+        run: npm ci
+      - name: Test the Operation
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Deploy the Project
+        run: |
+            echo "Deploying ..."
+            sleep 10
+            echo "Deployed Successfully :D"
