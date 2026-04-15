@@ -11,9 +11,14 @@ on:
     # paths-ignore:
     #   - '.github/workflows/*'
   workflow_dispatch:
+env:
+  DATABASE_NAME: gha-iti
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_USER: gha-abdo
+      DATABASE_PASS: gha-pass
     steps:
       - name: Get the Code Inside the Runner
         uses: actions/checkout@v6
@@ -21,6 +26,11 @@ jobs:
         run: npm ci
       - name: Test the Operation
         run: npm run test
+      - name: Test the env Variables
+        run: |
+            echo "Using  ENV Variables ..."
+            echo $DATABASE_NAME
+            echo "The user is -> $DATABASE_USER"
   build:
     needs: test
     runs-on: ubuntu-latest
