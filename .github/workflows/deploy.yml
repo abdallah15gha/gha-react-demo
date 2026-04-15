@@ -12,12 +12,12 @@ on:
     #   - '.github/workflows/*'
   workflow_dispatch:
 env:
-  DATABASE_NAME: gha-iti
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
 jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      DATABASE_USER: gha-abdo
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
       DATABASE_PASS: gha-pass
     steps:
       - name: Get the Code Inside the Runner
@@ -43,7 +43,7 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Output the Version
+      - name: Output the Versiongha-pass
         id: version-one
         run: echo "version=1.0.0" >> $GITHUB_OUTPUT
       - name: Upload Artifacts
