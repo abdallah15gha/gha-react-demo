@@ -70,5 +70,5 @@ jobs:
       - name: Report on Success
         run: |
             echo "All Steps Works Well :)"
-            echo "${{ toJson(github) }}"
+            echo "${{ toJSON(github) }}"
 
