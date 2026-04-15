@@ -24,6 +24,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version-one.outputs.version }}
     steps:
       - name: Get the Code
         uses: actions/checkout@v6
@@ -31,6 +33,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Output the Version
+        id: version-one
+        run: echo "version=1.0.0" >> $GITHUB_OUTPUT
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -46,6 +51,8 @@ jobs:
           name: dist-artifact
       - name: Output the content
         run: ls
+      - name: Get the previous Output
+        run: echo "Using Version ${{ needs.build.outputs.version }}"
       - name: Deploy the Project
         run: |
             echo "Deploying ..."
