@@ -1,4 +1,4 @@
-name: Website Deployment | Conditions Section
+name: Website Deployment
 on:
   push:
     branches:
@@ -70,5 +70,5 @@ jobs:
       - name: Report on Success
         run: |
             echo "All Steps Works Well :)"
-            echo "${{ toJSON(github) }}"
+            echo '${{ toJson(github) }}'
 
