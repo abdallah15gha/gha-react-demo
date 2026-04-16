@@ -9,7 +9,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, macos-latest]
-                node-version: [14, 16, 18]
+                node-version: [16, 18]
         continue-on-error: true
         runs-on: ${{ matrix.os }}
         steps:
